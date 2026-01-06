@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Practice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            max-width: 600px;
+        }
+        select {
+            padding: 10px;
+            font-size: 16px;
+            margin: 20px 0;
+        }
+        p {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>JavaScript Essentials - Functional Programming Exercises</h1>
+    <p>Select an exercise and open the browser console (Cmd+Option+I) to see the output</p>
+
+    <select onchange="runExercise(this.value)">
+        <option value="">-- Choose an Exercise --</option>
+        <option value="1">Exercise 1: Pure functions</option>
+        <option value="2">Exercise 2: Higher order functions</option>
+        <option value="3">Exercise 3: Avoid mutability</option>
+        <option value="4">Exercise 4: Recursion</option>
+        <option value="5">Exercise 5: Currying</option>
+        <option value="6">Exercise 6: Partial application</option>
+        <option value="7">Exercise 7: Function composition</option>
+    </select>
+
+    <script src="exercises.js"></script>
+    <script>
+        // When you write functionName(), JavaScript looks for a variable named functionName that contains a function. 
+        // But functionName is just a string ("exercise1"), not the actual function.
+        // window[functionName] uses bracket notation to access the function by name from the global window object. 
+        // When you define function exercise1() at the top level, it's automatically added to window as window.exercise1.
+        function runExercise(exerciseNum) {
+            if (exerciseNum) {
+                const functionName = `exercise${exerciseNum}`;
+                if (typeof window[functionName] === 'function') {
+                    window[functionName]();
+                } else {
+                    console.log(`Function ${functionName} not found.`);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
