@@ -158,6 +158,32 @@ function exercise6() {
     print(`boundGetComputedHeight using bind: ${boundGetComputedHeight(32)}`);
     // expected output: 74
 
+    print("\n--- bind() Example: Event Handler ---");
+    const user = {
+        name: "John",
+        greetings: [],
+        addGreeting: function(greeting) {
+            this.greetings.push(`${this.name} says: ${greeting}`);
+            print(this.greetings[this.greetings.length - 1]);
+        }
+    };
+
+    // Without bind - 'this' is lost
+    const unboundAddGreeting = user.addGreeting;
+    print("Without bind:");
+    try {
+        unboundAddGreeting("Hello");  // This will error
+    } catch(error) {
+        print(`Error without bind: ${error.message}`);
+    }
+
+    // With bind - 'this' is locked to user
+    print("\nWith bind:");
+    const boundAddGreeting = unboundAddGreeting.bind(user);
+    boundAddGreeting("Hello");     // "John says: Hello"
+    boundAddGreeting("Hi there");  // "John says: Hi there"
+    
+    print(`\nGreetings stored: ${user.greetings.length} messages`);
 }
 
 function exercise7() {
