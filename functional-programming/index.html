@@ -8,7 +8,7 @@
         body {
             font-family: Arial, sans-serif;
             padding: 20px;
-            max-width: 600px;
+            max-width: 800px;
         }
         select {
             padding: 10px;
@@ -17,6 +17,26 @@
         }
         p {
             color: #666;
+        }
+        .section {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-left: 4px solid #007acc;
+        }
+        .section h3 {
+            margin-top: 0;
+            color: #007acc;
+        }
+        #descriptionContent, #codeContent {
+            line-height: 1.6;
+        }
+        pre {
+            background-color: #1e1e1e;
+            color: #d4d4d4;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
         }
     </style>
 </head>
@@ -33,22 +53,44 @@
         <option value="5">Exercise 5: Currying</option>
         <option value="6">Exercise 6: Partial application</option>
         <option value="7">Exercise 7: Function composition</option>
+        <option value="8">Exercise 8: IIFE</option>
+        <option value="9">Exercise 9: Hoisting</option>
+        <option value="10">Exercise 10: Type Coercion</option>
+        <option value="11">Exercise 11: Closures</option>
     </select>
+
+    <div id="descriptionSection" class="section" style="display: none;">
+        <h3>Description</h3>
+        <div id="descriptionContent"></div>
+    </div>
+
+    <div id="codeSection" class="section" style="display: none;">
+        <h3>Code Examples</h3>
+        <div id="codeContent"></div>
+    </div>
 
     <script src="exercises.js"></script>
     <script>
-        // When you write functionName(), JavaScript looks for a variable named functionName that contains a function. 
-        // But functionName is just a string ("exercise1"), not the actual function.
-        // window[functionName] uses bracket notation to access the function by name from the global window object. 
-        // When you define function exercise1() at the top level, it's automatically added to window as window.exercise1.
         function runExercise(exerciseNum) {
             if (exerciseNum) {
                 const functionName = `exercise${exerciseNum}`;
                 if (typeof window[functionName] === 'function') {
                     window[functionName]();
-                } else {
-                    console.log(`Function ${functionName} not found.`);
                 }
+                
+                // Show description and code sections
+                const descFunctionName = `exercise${exerciseNum}Desc`;
+                
+                if (typeof window[descFunctionName] === 'function') {
+                    document.getElementById('descriptionContent').innerHTML = window[descFunctionName]();
+                    document.getElementById('descriptionSection').style.display = 'block';
+                }
+            
+                document.getElementById('codeContent').innerHTML = `<pre>${window[functionName].toString()}</pre>`;
+                document.getElementById('codeSection').style.display = 'block';
+            } else {
+                document.getElementById('descriptionSection').style.display = 'none';
+                document.getElementById('codeSection').style.display = 'none';
             }
         }
     </script>
